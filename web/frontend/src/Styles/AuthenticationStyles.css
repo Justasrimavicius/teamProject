@@ -1,20 +1,34 @@
 .authentication{
     width: 100vw;
     height: 100vh;
-    background-color: #1e1e1e24;
+    background-color: azure;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-around;
 
 }
-.authentication > div{
+.auth-left{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    width: 100vw;
+    width: 55vw;
     height: 100vh;
+}
+.auth-right{
+    width: 45vw;
+}
+.auth-mainText{
+    font-family: 'Montserrat';
+font-style: normal;
+font-weight: 700;
+font-size: 3rem;
+align-items: center;
+text-align: center;
+
+color: rgba(13, 55, 94, 0.77);
+margin-top: 0;
 }
 .name{
     background: linear-gradient(#0EA6D6, #00407A);
@@ -31,9 +45,23 @@
     height: 25px;
     margin-bottom: 7px;
 }
-.twitter-img{
-    width: 200px;
-    margin-top: -65px;
+.auth-icons{
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+}
+.auth-icons img{
+    width: 20%;
+    max-width: 160px;
+    height: auto;
+}
+.seperator{
+    width: 70%;
+    height: 3px;
+    background-color: black;
 }
 .auth-seperation{
     display: flex;
@@ -62,7 +90,8 @@
     margin-top: -100px;
 }
 .auth-inputs-holder{
-    max-width: 30vw;
+    margin-right: 10px;
+    margin-left: 10px;
     min-width: 400px;
     height: 350px;
     display: flex;
@@ -71,9 +100,14 @@
     align-items: center;
     gap: 20px;
 
+    background: linear-gradient(179.52deg, rgba(0, 240, 130, 0.743191) 10.07%, rgba(42, 245, 152, 0.743191) 62.87%, rgba(196, 239, 91, 0.461054) 91.45%, rgba(245, 237, 71, 0.371596) 102.04%);
+opacity: 0.9;
+border-radius: 50px;
+
     transition: 0.5s all;
 }
-.auth-inputs-holder button{
+.auth-inputs-holder button,
+.unauthenticatedBtn{
     outline: none;
     border: none;
     font-size: 1.5rem;
@@ -87,6 +121,10 @@
 
     transition: 0.1s all;
 }
+.unauthenticatedBtn{
+    width: 50%;
+    margin: 5%;
+}
 .auth-inputs-holder button:focus{
     transform: scale(1.1);
 }
@@ -98,11 +136,11 @@
     width: 100%;
     font-size: 1.15rem !important;
 }
-.signup-btn{
+/* .signup-btn{
     background-color: rgba(0, 0, 0, 0) !important;
     width: auto !important;
     padding: 5px !important;
-}
+} */
 .signup-btn:focus{
     transform: scale(1) !important;
     color: gray;
@@ -118,9 +156,9 @@
 .login-component{
     width: 100%;
     height: 100%;
-    background: linear-gradient(300deg, #5799F7 11.43%, #44B5E1 59.09%, #2AC9D7 84.63%);
-    mix-blend-mode: normal;
-    border-radius: 50px;
+    background: linear-gradient(179.52deg, rgba(0, 240, 130, 0.743191) 10.07%, rgba(42, 245, 152, 0.743191) 62.87%, rgba(196, 239, 91, 0.461054) 91.45%, rgba(245, 237, 71, 0.371596) 102.04%);
+opacity: 0.9;
+border-radius: 50px;
 }
 
 .signup-component form{
@@ -226,54 +264,64 @@ input:-webkit-autofill:active {
     margin: 10px;
 }
 
+.bubble1,
+.bubble2,
+.bubble3,
+.bubble4{
+    background: linear-gradient(45deg, #F5ED47 14.64%, #80F5E8 85.36%);
+    width: 14vw;
+    height: 14vw;
+    border-radius: 50%;
+    position: fixed;
 
-@media (max-width: 1125px){
-    .auth-inputs-holder{
-        height: auto;
-        min-height: 300px;
-    }
-    .signup-component form{
-        width: 100%;
-        height: 400px;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 0.2fr 2fr 0.5fr 0.5fr 0.1fr;
-    }
-    .auth-component-errorMsg{
-        grid-column: 1/2;
-        }
-        .signup-component form button,
-        .login-component form button{
-        grid-column: 1/2;
-        }
-        .auth-inputs-holder form > p:nth-child(1){
-            grid-column: 1/2;
-        }
-
-
-    .login-component form{
-        width: 100%;
-        height: 100%;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 0.3fr 1.5fr 0.5fr 0.5fr;
-    }
 }
-@media (max-width: 685px){
-    .authentication > div{
+.bubble1{
+    top: -15vh;
+    left: 60vw;
+}
+.bubble2{
+    top: -10vh;
+    left: -6vw;
+}
+.bubble3{
+    bottom: -12vh;
+    left: 3vw;
+}
+.bubble4{
+    bottom: -15vh;
+    right: 10vw;
+}
+
+
+
+
+@media (max-width: 900px){
+    .auth-inputs-holder{
+        min-width: auto;
+    }
+    .authentication{
         flex-direction: column;
     }
-    .authentication > div > p{
-        max-width: 400px;
-        min-width: 300px;
+    .auth-icons{
+        display: none;
     }
-}
-@media (max-width: 390px){
-    .twitter-img{
-        width: 100px;
+    .seperator{
+        display: none;
     }
     .auth-inputs-holder{
+        margin-bottom: 20px;
+    }
+    .unauthenticatedBtn{
+        width: 90%;
+    }
+    .auth-right,
+    .auth-left{
         width: 100%;
-        min-width: 100%;
+    }
+    .auth-mainText{
+        font-size: 2rem;
+    }
+    .name{
+        margin-bottom: 10px;
     }
 }
