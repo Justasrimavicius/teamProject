@@ -21,7 +21,6 @@ header{
 }
 .header-content p{
     grid-column: 3/5;
-    font-size: 2rem;
     font-weight: bold;
     color:azure;
 
