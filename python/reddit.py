@@ -2,7 +2,7 @@ import praw
 import pandas as pd
 import numpy as np
 import matplotlib as plt
-import collections
+from collections import Counter
 
 reddit = praw.Reddit(client_id="VxNJxCLCw8OIfB5PqrUIFg", 
                      client_secret="uRYevllCXluCxz5sqqbudMpZBkjBQw", 
@@ -23,7 +23,7 @@ def reddit_scrap(word):
         
         
 reddit_scrap(criteria)
-frequency = collections.Counter(raw_list)
+frequency = Counter(raw_list)
 '''''
 def freq(raw_list):
 
