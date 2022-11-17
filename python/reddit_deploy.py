@@ -1,4 +1,4 @@
-from praw import reddit
+import praw
 from collections import Counter
 
 def main():
