@@ -11,7 +11,7 @@ exports.redditScrapping = (req,res,next)=>{
     //     pythonPath: 'path/to/python',
     //     pythonOptions: ['-u'], // get print results in real-time
     //     scriptPath: '../../../python/main.py',
-    //     args: ['value1', 'value2', 'value3']
+    //     args: [text]
     //   };
     
     //   PythonShell.run('my_script.py', options, function (err, results) {
