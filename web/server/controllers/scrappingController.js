@@ -5,20 +5,23 @@ exports.redditScrapping = (req,res,next)=>{
 
 
     const text = req.body.text; // word that will be scrapped
-
-    // let options = {
-    //     mode: 'text',
-    //     pythonPath: 'path/to/python',
-    //     pythonOptions: ['-u'], // get print results in real-time
-    //     scriptPath: '../../../python/main.py',
-    //     args: [text]
-    //   };
+    if(text == ''){
+        res.json({error: `Text field can't be empty`})
+    }
+    let options = {
+        mode: 'text',
+        pythonPath: 'path/to/python',
+        pythonOptions: ['-u'], // get print results in real-time
+        scriptPath: '../../../python/reddit.py',
+        args: [text]
+      };
     
-    //   PythonShell.run('my_script.py', options, function (err, results) {
-    //     if (err) throw err;
-    //     // results is an array consisting of messages collected during execution
-    //     console.log('results: %j', results);
-    //   });
+      PythonShell.run('my_script.py', options, function (err, results) {
+        console.log(err)
+        if (err) throw err;
+        // results is an array consisting of messages collected during execution
+        console.log('results: %j', results);
+      });
 }
 
 exports.twitterScrapping = (req,res,next)=>{
