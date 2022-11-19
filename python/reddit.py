@@ -1,7 +1,4 @@
 import praw
-import pandas as pd
-import numpy as np
-import matplotlib as plt
 import collections
 
 reddit = praw.Reddit(client_id="VxNJxCLCw8OIfB5PqrUIFg", 
@@ -10,10 +7,10 @@ reddit = praw.Reddit(client_id="VxNJxCLCw8OIfB5PqrUIFg",
 
 criteria = input("Iveskite paieškos kriterijų: \n ")
 all_posts = reddit.subreddit('all')
-scraped_data = pd.DataFrame()
+
 raw_list = []
 def reddit_scrap(word):
-    target = reddit.subreddit("all")
+    target = reddit.subreddit("popular")
 
     for i in target.search(word, limit=10000):
         if(len(i.title.split()) != 0):
@@ -23,7 +20,17 @@ def reddit_scrap(word):
         
         
 reddit_scrap(criteria)
-frequency = collections.Counter(raw_list)
+#frequency = collections.Counter(raw_list)
+for i in range (len(raw_list)):
+    raw_list[i] =  raw_list[i].upper()
+
+ignore = ['and','from','you','off','up','me','the', 'with', 'had',
+         'as', 'the','a','if','in','it','of','or', 'is', 'to', 'on',
+          'this', 'was', 'were', 'my', 'do' , 'so', 'be', 'are', 'for', 'but', 'i', 'at', 'am', '*', '&', '***', '-']
+for i in range (len(ignore)):
+    ignore[i] =  ignore[i].upper()
+
+frequency = collections.Counter( x for x in raw_list if x not in ignore)
 '''''
 def freq(raw_list):
 
