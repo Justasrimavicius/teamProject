@@ -27,7 +27,7 @@ function ScrapeReddit(props) {
     }
     
     useEffect(()=>{
-        if(error!=null){
+        if(error!==null){
             setTimeout(() => {
                 setError(null);
             }, 2000);
