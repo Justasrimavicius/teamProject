@@ -12,8 +12,8 @@ const firebaseConfig = {
 
 app = firebase.initializeApp(firebaseConfig)
 
-
 exports.signup = (req,res,next)=>{
+    let hashedPassword;
     
     const email = req.body.email;
     const emailR = req.body.emailR;

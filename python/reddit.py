@@ -1,15 +1,23 @@
 import praw
-import collections
+#<<<<<<< HEAD
+from collections import Counter
+
+#import pandas as pd
+#import numpy as np
+#import matplotlib as plt
+#from collections import Counter
+#>>>>>>> 0f3b4fb293773165fc7a9bf2538c049a6f228b5b
 
 reddit = praw.Reddit(client_id="VxNJxCLCw8OIfB5PqrUIFg", 
                      client_secret="uRYevllCXluCxz5sqqbudMpZBkjBQw", 
                      user_agent="Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101 Firefox/91.0")
 
+#<<<<<<< HEAD
 criteria = input("Iveskite paieškos kriterijų: \n ")
 all_posts = reddit.subreddit('all')
 
 raw_list = []
-def reddit_scrap(word):
+def pagrindine_funkcija(word):
     target = reddit.subreddit("popular")
 
     for i in target.search(word, limit=10000):
@@ -19,7 +27,7 @@ def reddit_scrap(word):
             raw_list.extend(i.selftext.split())
         
         
-reddit_scrap(criteria)
+pagrindine_funkcija(criteria)
 #frequency = collections.Counter(raw_list)
 for i in range (len(raw_list)):
     raw_list[i] =  raw_list[i].upper()
@@ -31,6 +39,26 @@ for i in range (len(ignore)):
     ignore[i] =  ignore[i].upper()
 
 frequency = collections.Counter( x for x in raw_list if x not in ignore)
+#=======
+def pagrindine_funkcija(criteria):
+    all_posts = reddit.subreddit('all')
+    scraped_data = pd.DataFrame()
+    raw_list = []
+    def reddit_scrap(word):
+        target = reddit.subreddit("all")
+
+        for i in target.search(word, limit=10000):
+            if(len(i.title.split()) != 0):
+                raw_list.extend(i.title.split())
+            if(len(i.selftext.split()) != 0):
+                raw_list.extend(i.selftext.split())
+            
+            
+    reddit_scrap(criteria)
+    frequency = Counter(raw_list)
+
+
+#>>>>>>> 0f3b4fb293773165fc7a9bf2538c049a6f228b5b
 '''''
 def freq(raw_list):
 
