@@ -1,6 +1,6 @@
 import praw
 #<<<<<<< HEAD
-from collections import Counter
+import collections
 
 #import pandas as pd
 #import numpy as np
@@ -41,11 +41,9 @@ for i in range (len(ignore)):
 frequency = collections.Counter( x for x in raw_list if x not in ignore)
 #=======
 def pagrindine_funkcija(criteria):
-    all_posts = reddit.subreddit('all')
-    scraped_data = pd.DataFrame()
     raw_list = []
     def reddit_scrap(word):
-        target = reddit.subreddit("all")
+        target = reddit.subreddit("popular")
 
         for i in target.search(word, limit=10000):
             if(len(i.title.split()) != 0):
@@ -55,7 +53,7 @@ def pagrindine_funkcija(criteria):
             
             
     reddit_scrap(criteria)
-    frequency = Counter(raw_list)
+    frequency = collections.Counter(raw_list)
 
 
 #>>>>>>> 0f3b4fb293773165fc7a9bf2538c049a6f228b5b
