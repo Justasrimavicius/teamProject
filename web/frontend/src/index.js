@@ -7,7 +7,7 @@ import './Styles/AuthenticationStyles.css';
 import './Styles/MainStyles.css';
 import './Styles/FooterStyles.css';
 import './Styles/HeaderStyles.css';
-
+import './Styles/AnimationStyles.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
