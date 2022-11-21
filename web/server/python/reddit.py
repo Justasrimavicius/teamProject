@@ -1,6 +1,7 @@
 import praw
 #<<<<<<< HEAD
 import collections
+import sys
 
 #import pandas as pd
 #import numpy as np
@@ -13,7 +14,7 @@ reddit = praw.Reddit(client_id="VxNJxCLCw8OIfB5PqrUIFg",
                      user_agent="Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101 Firefox/91.0")
 
 #<<<<<<< HEAD
-criteria = input("Iveskite paieškos kriterijų: \n ")
+criteria = sys.argv[1]
 all_posts = reddit.subreddit('all')
 
 raw_list = []

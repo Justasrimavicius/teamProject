@@ -3,7 +3,10 @@ import itertools
 import tweepy as tw
 import re
 
+import sys
+
 # idk about safety of these keys?
+# these should be transfered to .env file
 api_key = 'PxNIdoUIzWxBVWHyrtGGYbge4'
 api_secret = 'AuNIaE8Uc6KjH3z1aFJ6S3psOfDAEAqxaQRNHTiFpJZ3oEpWyf'
 access_token = '1342488469331976193-pnsUcP0eAQhcznk7jXWWEzrotpR1p8'
@@ -16,8 +19,8 @@ def main():
     api = tw.API(auth, wait_on_rate_limit=True)
 
     # INPUT - these should be gotten from .js
-    key_word = input("Please enter keyword or hashtag to search: ")
-    number = int(input("Please enter how many tweets to analyze: "))
+    key_word = sys.argv[1]
+    number = sys.argv[2]
 
 
     # FUNCTION REFERENCES

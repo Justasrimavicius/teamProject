@@ -20,9 +20,16 @@ function ScrapeReddit(props) {
         }));
         xhr.onload = ()=>{
             const response = JSON.parse(xhr.responseText);
-            if(response.error){
-                setError(response.error);
-            }
+            // if(response.error){
+            //     setError(response.error);
+            // } else {
+            //     const final = xhr.responseText.split('(');
+            //     final.forEach(element=>{
+            //         element.slice(0,element.indexOf(')'));
+            //     })
+            //     console.log(final);
+
+            // }
         }
     }
     
