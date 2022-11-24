@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 import re
 import os
-
+import sys
 # FUNCTIONS
 def get_tweets(key_word, number):
     twitter_users = []
@@ -62,8 +62,8 @@ auth.set_access_token(access_token, access_token_secret)
 api = tw.API(auth, wait_on_rate_limit=True)
 
 # INPUT
-key_word = input("Please enter keyword or hashtag to search: ")
-number = input("Please enter how many tweets to analyze: ")
+key_word = sys.argv[1]
+number = sys.argv[2]
 number = int(number)
 
 # FUNCTION REFERENCES
@@ -72,4 +72,4 @@ twitter_users, tweet_time, tweet_likes, tweet_string, tweet_no_url = get_tweets(
 export_tweets(twitter_users, tweet_time, tweet_likes, tweet_string, key_word)
 export_words(word_frequency(tweet_no_url), key_word)
 
-print("\nEnd of the program")
+print(export_tweets(twitter_users, tweet_time, tweet_likes, tweet_string, key_word))

@@ -15,19 +15,21 @@ exports.redditScrapping = (req,res,next)=>{
       return;
     })
 
-    // proccess.stderr.on('data', data => {
-    //   res.json({scrappingErr: data});
-    //   return;
-    // });
-
 }
 
 exports.twitterScrapping = (req,res,next)=>{
 
     // cia bus integracija su twitter scrapping python failu(main.py)
+    const pathToRedditScript = path.join(__dirname,'../python/main.py');
 
-
-    console.log(req.body);
     const text = req.body.text; // word that will be scrapped
+
+    const proccess = spawn('python',[pathToRedditScript,text,1000])
+
+    proccess.stdout.on('data',data => {
+      // res.json(data.toString());
+      console.log(data.toString())
+      return;
+    })
 
 };

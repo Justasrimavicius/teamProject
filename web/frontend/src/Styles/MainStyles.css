@@ -30,8 +30,12 @@ main{
     width: 90%;
     height: 60%;
     box-shadow: 0px 6px 20px 0px #8d8d8d;
-
 }
+.input-innerResults{
+    height: 80%;
+    overflow: auto;
+}
+
 .input-buttons{
     width: 90%;
     display: flex;
@@ -83,11 +87,33 @@ main{
 .errorMsg{
     color: red;
 }
+.button-disabled{
+    pointer-events: none;
+    background: #acacac !important;
+}
+.input-results ul{
+    padding: 0 10%;
+    margin: 0;
+    height: 50px;
+    list-style-type: none;
 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+}
 
-
-
+.reddit-ul{
+    border-bottom: 1px solid rgb(96, 96, 96) !important;
+}
+/* <ul className='reddit-ul'>
+<li>Zuccky</li>
+<li>55</li>
+</ul> */
 
 @media (max-width: 750px){
 
@@ -99,6 +125,9 @@ main{
         font-size: 3rem;
         grid-column: 2/6 !important;
     }
+    /* .input-results ul{
+        padding: 0 25px;
+    } */
 }
 @media (min-width: 1400px){
     .redditIcon-main,
