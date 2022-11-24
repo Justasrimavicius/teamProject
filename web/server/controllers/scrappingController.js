@@ -14,7 +14,6 @@ exports.redditScrapping = (req,res,next)=>{
       res.json(data.toString());
       return;
     })
-
 }
 
 exports.twitterScrapping = (req,res,next)=>{
