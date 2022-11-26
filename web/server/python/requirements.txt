@@ -1,2 +1,5 @@
 tweepy==4.10.1
 praw==7.6.1
+pandas==1.5.2
+numpy==1.23.0
+openpyxl==3.0.10

@@ -7,7 +7,6 @@ function ScrapeReddit(props) {
 
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [overlay, setOverlay] = useState(false);
 
     const [scrapeResults, setScrapeResults] = useState([]);
 

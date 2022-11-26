@@ -68,8 +68,10 @@ number = int(number)
 
 # FUNCTION REFERENCES
 twitter_users, tweet_time, tweet_likes, tweet_string, tweet_no_url = get_tweets(key_word, number)
-# frequent_words = word_frequency(tweet_no_url)
-export_tweets(twitter_users, tweet_time, tweet_likes, tweet_string, key_word)
-export_words(word_frequency(tweet_no_url), key_word)
+frequent_words = word_frequency(tweet_no_url)
+# export_tweets(twitter_users, tweet_time, tweet_likes, tweet_string, key_word)
+# export_words(word_frequency(tweet_no_url), key_word)
 
-print(export_tweets(twitter_users, tweet_time, tweet_likes, tweet_string, key_word))
+# print(export_tweets(twitter_users, tweet_time, tweet_likes, tweet_string, key_word))
+# print(word_frequency(tweet_no_url))
+print(frequent_words)

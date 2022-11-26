@@ -9,7 +9,10 @@ function ScrapeTwitter(props) {
     const [loading, setLoading] = useState(false);
     const [overlay, setOverlay] = useState(false);
 
+    const [scrapeResults, setScrapeResults] = useState([]);
+
     const textInputRef = useRef();
+    const scrapeBtnRef = useRef();
     let previousText = useRef('TEMPLATE MESSAGE');
     function scrape(){
         const text = textInputRef.current.value;
@@ -21,7 +24,7 @@ function ScrapeTwitter(props) {
             return;
         }
         previousText.current = text;
-        // setLoading(true);
+        setLoading(true);
 
         let xhr = new XMLHttpRequest();
         xhr.open('POST','http://localhost:8080/twitterScrapping', true);
@@ -30,36 +33,22 @@ function ScrapeTwitter(props) {
             text: text
         }));
         xhr.onload = ()=>{
-            // setLoading(false);
-            const response = JSON.parse(xhr.responseText);
-            if(response.error){
-                setError(response.error);
-            } else if(response.scrappingErr){
-                setError('Uncaught error. Please retry the search')
-            } else {
-                // the response from python is in string format - it needs to be cleaned up and put in arrays properly
+            setLoading(false);
+            const response = xhr.responseText.slice(10, xhr.responseText.length);
+            const temp_all = response.split(',');
+            
+            const temp_firstHundred = temp_all.slice(0,100);
 
-                // splits the response string into an array, but the arrays have "), " at the end
-                // the temp array consists of strings, that contain both the word and the frequancy of the word
-                const temp = xhr.responseText.split('(');
+            const temp_seperatedFrequancyAndWords = temp_firstHundred.map(elem=>{
+                return elem.split(':');
+            })
 
-                // cleanerTemp consists of array of strings without the closing bracket
-                const cleanerTemp = temp.map(element=>{
-                    return element.slice(0,element.indexOf(')'));
+            const final = temp_seperatedFrequancyAndWords.map(elem=>{
+                return elem.map(innerElem=>{
+                    return (innerElem.replaceAll(' ', '')).replaceAll(`'`,'');
                 })
-
-                // evenMoreCleanerTemp is the array, that consists of arrays that in the [0] index have the word, and at [1] have the frequancy
-                const evenMoreCleanerTemp = cleanerTemp.map(element=>{
-                    return element.split(', ')
-                })
-
-                // finalArray is like evenMoreCleanerTemp, but without the unnecessary paranthases in [0]
-                const finalArray = evenMoreCleanerTemp.map(element=>{
-                    const temporary = [element[0].replaceAll(`'`,''), parseFloat(element[1])]
-                    return temporary;
-                })
-                console.log(finalArray)
-            }
+            })
+            setScrapeResults(final);
         }
     }
     
@@ -70,16 +59,40 @@ function ScrapeTwitter(props) {
             }, 2000);
         }
     },[error])
+
+    useEffect(()=>{
+        if(loading==true){
+            scrapeBtnRef.current.classList.add('button-disabled');
+        }
+        if(loading==false && scrapeBtnRef.current.classList.contains('button-disabled')){
+            scrapeBtnRef.current.classList.remove('button-disabled');
+        }
+    },[loading])
+
     return (
         <div className='scrapeTwitter'>
             <h4 style={{fontSize:'2rem',margin:'10px'}}>Twitter scrapping</h4>
             <p className='errorMsg'>{error}</p>
             <input className='main-text-input' placeholder='Enter your word' ref={textInputRef}></input>
             <div className='input-results'>
-                <div className='input-results-upper'></div>
+                    <ul>
+                        <li>Word</li>
+                        <li>Frequency</li>
+                    </ul>
+                <div className='input-innerResults'>
+                    {scrapeResults.map((singleField,index)=>{
+                        if(isNaN(singleField[1]))return;
+                        return(
+                            <ul className='reddit-ul' key={index}>
+                                <li>{singleField[0]}</li>
+                                <li>{singleField[1]}</li>
+                            </ul>
+                        )
+                    })}
+                </div>
             </div>
             <div className='input-buttons'>
-                <button onClick={()=>{scrape()}}>Scrape</button>
+                <button onClick={()=>{scrape()}} ref={scrapeBtnRef}>{loading==true ? <div className="lds-dual-ring"></div> : <p style={{margin:'0'}}>Scrape</p>}</button>
                 <button>Detailed view</button>
             </div>
             <button className='goBack-btn' onClick={()=>{props.setWhatToScrape('')}}>Go back</button>

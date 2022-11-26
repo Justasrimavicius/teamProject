@@ -106,14 +106,9 @@ main{
     font-weight: bold;
     border-bottom: 2px solid black;
 }
-
 .reddit-ul{
     border-bottom: 1px solid rgb(96, 96, 96) !important;
 }
-/* <ul className='reddit-ul'>
-<li>Zuccky</li>
-<li>55</li>
-</ul> */
 
 @media (max-width: 750px){
 
@@ -125,9 +120,6 @@ main{
         font-size: 3rem;
         grid-column: 2/6 !important;
     }
-    /* .input-results ul{
-        padding: 0 25px;
-    } */
 }
 @media (min-width: 1400px){
     .redditIcon-main,

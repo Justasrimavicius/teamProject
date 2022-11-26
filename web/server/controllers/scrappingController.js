@@ -22,13 +22,14 @@ exports.twitterScrapping = (req,res,next)=>{
     const pathToRedditScript = path.join(__dirname,'../python/main.py');
 
     const text = req.body.text; // word that will be scrapped
-
-    const proccess = spawn('python',[pathToRedditScript,text,1000])
-
+    let isResSent = false;
+    const proccess = spawn('python',[pathToRedditScript,text,100])
     proccess.stdout.on('data',data => {
-      // res.json(data.toString());
-      console.log(data.toString())
-      return;
+      if(!isResSent){
+        isResSent = true;
+        res.json(data.toString());
+        return;
+      }
     })
 
 };
