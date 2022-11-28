@@ -11,10 +11,14 @@ function ScrapeReddit(props) {
     const [scrapeResults, setScrapeResults] = useState([]);
 
     const textInputRef = useRef();
+    const resFreqRef = useRef();
+
     const scrapeBtnRef = useRef();
     let previousText = useRef('TEMPLATE MESSAGE');
     function scrape(){
         const text = textInputRef.current.value;
+        let freq = resFreqRef.current.value;
+        if(freq == '')freq = 100;
         if(text==previousText.current){
             setError('Type a different word/phrase');
             return;
@@ -29,7 +33,8 @@ function ScrapeReddit(props) {
         xhr.open('POST','http://localhost:8080/redditScrapping', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify({
-            text: text
+            text: text,
+            freq: freq
         }));
         xhr.onload = ()=>{
             setLoading(false);
@@ -85,12 +90,16 @@ function ScrapeReddit(props) {
         <div className='scrapeReddit'>
             <h4 style={{fontSize:'2rem',margin:'10px'}}>Reddit scrapping</h4>
             <p className='errorMsg'>{error}</p>
-            <input className='main-text-input' placeholder='Enter your word' ref={textInputRef}></input>
+            <div className='inputs'>
+                <input className='main-text-input' placeholder='Your word' ref={textInputRef}></input>
+                <input className='main-text-input' placeholder='Result quantity(default - 100)' ref={resFreqRef}></input>
+
+            </div> 
             <div className='input-results'>
-                    <ul>
-                        <li>Word</li>
-                        <li>Frequency</li>
-                    </ul>
+                <ul>
+                    <li>Word</li>
+                    <li>Frequency</li>
+                </ul>
                 <div className='input-innerResults'>
                     {scrapeResults.map((singleField,index)=>{
                         if(isNaN(singleField[1]))return;

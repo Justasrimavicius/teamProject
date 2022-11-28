@@ -14,11 +14,18 @@ main{
     justify-content: space-around;
     align-items: center;
 }
+.inputs{
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
 .main-text-input{
     background: rgba(229, 228, 228, 0.85);
     opacity: 0.5;
     border-radius: 50px;
-    width: 90%;
+    width: 49%;
     height: 50px;
     font-size: 2rem;
     box-shadow: 0px 6px 20px 0px #8d8d8d;

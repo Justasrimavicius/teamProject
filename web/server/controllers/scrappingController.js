@@ -7,8 +7,8 @@ exports.redditScrapping = (req,res,next)=>{
     const pathToRedditScript = path.join(__dirname,'../python/reddit.py');
 
     const text = req.body.text; // word that will be scrapped
-
-    const proccess = spawn('python',[pathToRedditScript,text])
+    const freq = req.body.freq;
+    const proccess = spawn('python',[pathToRedditScript,text,`${freq}`])
 
     proccess.stdout.on('data',data => {
       res.json(data.toString());
@@ -25,6 +25,7 @@ exports.twitterScrapping = (req,res,next)=>{
     let isResSent = false;
     const proccess = spawn('python',[pathToRedditScript,text,100])
     proccess.stdout.on('data',data => {
+      console.log(data.toString())
       if(!isResSent){
         isResSent = true;
         res.json(data.toString());

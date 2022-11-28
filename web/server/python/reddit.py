@@ -15,6 +15,7 @@ reddit = praw.Reddit(client_id="VxNJxCLCw8OIfB5PqrUIFg",
 
 #<<<<<<< HEAD
 criteria = sys.argv[1]
+abcdefg = int(sys.argv[2])
 all_posts = reddit.subreddit('all')
 
 raw_list = []
@@ -66,4 +67,4 @@ def freq(raw_list):
  
 print(freq(raw_list))
 '''
-print(frequency.most_common(100))
+print(frequency.most_common(abcdefg))
