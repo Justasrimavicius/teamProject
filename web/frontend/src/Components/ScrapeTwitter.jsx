@@ -12,10 +12,18 @@ function ScrapeTwitter(props) {
     const [scrapeResults, setScrapeResults] = useState([]);
 
     const textInputRef = useRef();
+    const resFreqRef = useRef();
     const scrapeBtnRef = useRef();
     let previousText = useRef('TEMPLATE MESSAGE');
     function scrape(){
         const text = textInputRef.current.value;
+        let freq = resFreqRef.current.value;
+        if(freq == '')freq = 100;
+        console.log(freq)
+        if(freq != '' && isNaN(freq)){
+            setError('Word quantity must be a number')
+            return;
+        }
         if(text==previousText.current){
             setError('Type a different word/phrase');
             return;
@@ -30,17 +38,20 @@ function ScrapeTwitter(props) {
         xhr.open('POST','http://localhost:8080/twitterScrapping', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify({
-            text: text
+            text: text,
+            freq: freq
         }));
         xhr.onload = ()=>{
+            console.log(xhr.responseText)
             setLoading(false);
-            const response = xhr.responseText.slice(10, xhr.responseText.length);
-            const temp_all = response.split(',');
-            
-            const temp_firstHundred = temp_all.slice(0,100);
-
-            const temp_seperatedFrequancyAndWords = temp_firstHundred.map(elem=>{
-                return elem.split(':');
+            const response = xhr.responseText.slice(2, xhr.responseText.length - 4);
+            const temp_all = response.split('(');
+            const cleanerTemp = temp_all.map(res => {
+                return res.slice(0, res.indexOf(')'))
+            })
+            cleanerTemp.shift();
+            const temp_seperatedFrequancyAndWords = cleanerTemp.map(elem=>{
+                return elem.split(',');
             })
 
             const final = temp_seperatedFrequancyAndWords.map(elem=>{
@@ -48,6 +59,7 @@ function ScrapeTwitter(props) {
                     return (innerElem.replaceAll(' ', '')).replaceAll(`'`,'');
                 })
             })
+            console.log(final);
             setScrapeResults(final);
         }
     }
@@ -73,7 +85,10 @@ function ScrapeTwitter(props) {
         <div className='scrapeTwitter'>
             <h4 style={{fontSize:'2rem',margin:'10px'}}>Twitter scrapping</h4>
             <p className='errorMsg'>{error}</p>
-            <input className='main-text-input' placeholder='Enter your word' ref={textInputRef}></input>
+            <div className='inputs'>
+                <input className='main-text-input' placeholder='Your word' ref={textInputRef}></input>
+                <input className='main-text-input' placeholder='Word qty.' ref={resFreqRef}></input>
+            </div>
             <div className='input-results'>
                     <ul>
                         <li>Word</li>

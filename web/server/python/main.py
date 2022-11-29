@@ -37,7 +37,7 @@ def word_frequency(tweet_no_url):
         tweet_words.append(tweet.lower().split())
     frequent_words = collections.Counter(list(itertools.chain(*tweet_words)))
 
-    return frequent_words
+    return frequent_words.most_common(resultQty)
 
 def export_tweets(twitter_users, tweet_time, tweet_likes, tweet_string, key_word):
     tweets_df = pd.DataFrame({"name": twitter_users,
@@ -63,8 +63,8 @@ api = tw.API(auth, wait_on_rate_limit=True)
 
 # INPUT
 key_word = sys.argv[1]
-number = sys.argv[2]
-number = int(number)
+number = 100
+resultQty = int(sys.argv[2])
 
 # FUNCTION REFERENCES
 twitter_users, tweet_time, tweet_likes, tweet_string, tweet_no_url = get_tweets(key_word, number)

@@ -19,6 +19,10 @@ function ScrapeReddit(props) {
         const text = textInputRef.current.value;
         let freq = resFreqRef.current.value;
         if(freq == '')freq = 100;
+        if(freq != '' && isNaN(freq)){
+            setError('Result quantity must be a number')
+            return;
+        }
         if(text==previousText.current){
             setError('Type a different word/phrase');
             return;
@@ -92,8 +96,7 @@ function ScrapeReddit(props) {
             <p className='errorMsg'>{error}</p>
             <div className='inputs'>
                 <input className='main-text-input' placeholder='Your word' ref={textInputRef}></input>
-                <input className='main-text-input' placeholder='Result quantity(default - 100)' ref={resFreqRef}></input>
-
+                <input className='main-text-input' placeholder='Word qty.' ref={resFreqRef}></input>
             </div> 
             <div className='input-results'>
                 <ul>
@@ -102,6 +105,7 @@ function ScrapeReddit(props) {
                 </ul>
                 <div className='input-innerResults'>
                     {scrapeResults.map((singleField,index)=>{
+                        if(singleField[0] == '&#X200B;')return;
                         if(isNaN(singleField[1]))return;
                         return(
                             <ul className='reddit-ul' key={index}>
