@@ -1,7 +1,6 @@
 header{
     width: 100vw;
     height: 10vh;
-    position: fixed;
 
     display: flex;
     flex-direction: column;
