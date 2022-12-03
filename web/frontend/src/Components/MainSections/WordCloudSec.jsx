@@ -22,7 +22,7 @@ function WordCloudSec(props) {
         //Pacio layouto kurimas    
         const layout = cloud()
         .size([width, height])
-        .words(props.array.map((d,index)=>{if(index==1){if(d[1] < 20){sizeMultiplier = 3}else if(d[1] < 50){sizeMultiplier = 2}else if(d[1] > 200){sizeMultiplier = 0.7}else{sizeMultiplier = 1}}; return {text: d[0], size: d[1]}}))
+        .words(props.array.map((d,index)=>{if(index==1){if(parseFloat(d[1]) < 20){sizeMultiplier = 3}else if(parseFloat(d[1]) < 50){sizeMultiplier = 2}else if(parseFloat(d[1]) > 200){sizeMultiplier = 0.7}else{sizeMultiplier = 1}}; return {text: d[0], size: d[1]}}))
         .padding(4)        //Tarpas tarp zodziu
         .rotate(315)       // Zodziu pasisukimas, jis yra random galima padaryt ji vienoda
         .fontSize(function(d) { return d.size * sizeMultiplier; })      // zodziu dydis pagal turimus skaicius, kadangi fonto dydis atitinka frequency

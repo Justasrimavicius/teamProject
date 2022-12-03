@@ -15,7 +15,6 @@ function ScrapeReddit(props) {
 
     const textInputRef = useRef();
     const resFreqRef = useRef();
-    const inputResultsRef = useRef();
 
     const scrapeBtnRef = useRef();
     let previousText = useRef('TEMPLATE MESSAGE');
@@ -103,7 +102,7 @@ function ScrapeReddit(props) {
                 <input className='main-text-input' placeholder='Word qty.' ref={resFreqRef}></input>
             </div> 
             {wordCloud == false ?
-            <div className='input-results' ref={inputResultsRef}>
+            <div className='input-results'>
                 <ul>
                     <li>Word</li>
                     <li>Frequency</li>
@@ -126,8 +125,7 @@ function ScrapeReddit(props) {
                 </div>
             </div>
             : 
-            // <div className='bubble-cloud-outer'>
-                <WordCloudSec array={scrapeResults} goBack={activateWordCloud} dimensionsRef={inputResultsRef}/>
+                <WordCloudSec array={scrapeResults} goBack={activateWordCloud}/>
             }
 
             <div className='input-buttons'>

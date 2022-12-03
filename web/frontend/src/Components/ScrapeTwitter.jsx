@@ -3,11 +3,13 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useRef } from 'react';
 
+import WordCloudSec from './MainSections/WordCloudSec';
+
 function ScrapeTwitter(props) {
 
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [overlay, setOverlay] = useState(false);
+    const [wordCloud, activateWordCloud] = useState(false);
 
     const [scrapeResults, setScrapeResults] = useState([]);
 
@@ -19,7 +21,6 @@ function ScrapeTwitter(props) {
         const text = textInputRef.current.value;
         let freq = resFreqRef.current.value;
         if(freq == '')freq = 100;
-        console.log(freq)
         if(freq != '' && isNaN(freq)){
             setError('Word quantity must be a number')
             return;
@@ -77,6 +78,7 @@ function ScrapeTwitter(props) {
             scrapeBtnRef.current.classList.add('button-disabled');
         }
         if(loading==false && scrapeBtnRef.current.classList.contains('button-disabled')){
+            activateWordCloud(false);
             scrapeBtnRef.current.classList.remove('button-disabled');
         }
     },[loading])
@@ -89,6 +91,7 @@ function ScrapeTwitter(props) {
                 <input className='main-text-input' placeholder='Your word' ref={textInputRef}></input>
                 <input className='main-text-input' placeholder='Word qty.' ref={resFreqRef}></input>
             </div>
+            {wordCloud == false ?
             <div className='input-results'>
                     <ul>
                         <li>Word</li>
@@ -106,11 +109,14 @@ function ScrapeTwitter(props) {
                     })}
                 </div>
             </div>
+            : 
+            <WordCloudSec array={scrapeResults} goBack={activateWordCloud}/>
+            }
             <div className='input-buttons'>
                 <button onClick={()=>{scrape()}} ref={scrapeBtnRef}>{loading==true ? <div className="lds-dual-ring"></div> : <p style={{margin:'0'}}>Scrape</p>}</button>
-                <button>Detailed view</button>
+                <button onClick={()=>{if(scrapeResults.length == 0){setError('First, enter a word/phrase to scrape'); return}; activateWordCloud(true)}}>Detailed view</button>
             </div>
-            <button className='goBack-btn' onClick={()=>{props.setWhatToScrape('')}}>Go back</button>
+            <button className='goBack-btn' onClick={()=>{if(wordCloud == true){activateWordCloud(false); return}props.setWhatToScrape('')}}>Go back</button>
         </div>
     );
 }

@@ -41,6 +41,7 @@ main{
 .input-innerResults{
     height: 80%;
     overflow: auto;
+    overflow-x: hidden;
 }
 
 .input-buttons{
