@@ -1,12 +1,13 @@
 import React from 'react';
 import { useEffect } from 'react';
+import { useContext } from 'react';
 import { useState } from 'react';
 import { useRef } from 'react';
-
+import MyContext from '../context';
 import WordCloudSec from './MainSections/WordCloudSec';
 
 function ScrapeTwitter(props) {
-
+    const { UID } = useContext(MyContext);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [wordCloud, activateWordCloud] = useState(false);
@@ -24,6 +25,13 @@ function ScrapeTwitter(props) {
         if(freq != '' && isNaN(freq)){
             setError('Word quantity must be a number')
             return;
+        }
+        if(freq != '' && freq < 100){
+            setError('Word frequency must be greater than 100')
+            return;
+        }
+        if(freq != '' && freq > 1000){
+            setError(`Word frequency can't be larger then 1000`)
         }
         if(text==previousText.current){
             setError('Type a different word/phrase');
@@ -85,7 +93,7 @@ function ScrapeTwitter(props) {
 
     return (
         <div className='scrapeTwitter'>
-            <h4 style={{fontSize:'2rem',margin:'10px'}}>Twitter scrapping</h4>
+            <h4 style={{fontSize:'2rem',margin:'0'}}>Twitter scrapping</h4>
             <p className='errorMsg'>{error}</p>
             <div className='inputs'>
                 <input className='main-text-input' placeholder='Your word' ref={textInputRef}></input>
@@ -114,7 +122,7 @@ function ScrapeTwitter(props) {
             }
             <div className='input-buttons'>
                 <button onClick={()=>{scrape()}} ref={scrapeBtnRef}>{loading==true ? <div className="lds-dual-ring"></div> : <p style={{margin:'0'}}>Scrape</p>}</button>
-                <button onClick={()=>{if(scrapeResults.length == 0){setError('First, enter a word/phrase to scrape'); return}; activateWordCloud(true)}}>Detailed view</button>
+                <button onClick={()=>{if(scrapeResults.length == 0){setError('First, enter a word/phrase to scrape'); return};if(UID == ''){setError('You need to log in in order to see the detailed view');return;} activateWordCloud(true)}}>Detailed view</button>
             </div>
             <button className='goBack-btn' onClick={()=>{if(wordCloud == true){activateWordCloud(false); return}props.setWhatToScrape('')}}>Go back</button>
         </div>

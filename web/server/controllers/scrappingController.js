@@ -8,11 +8,14 @@ exports.redditScrapping = (req,res,next)=>{
 
     const text = req.body.text; // word that will be scrapped
     const freq = req.body.freq;
-    const proccess = spawn('python',[pathToRedditScript,text,freq])
+    let isResSent = false;
 
+    const proccess = spawn('python',[pathToRedditScript,text,freq])
     proccess.stdout.on('data',data => {
-      res.json(data.toString());
-      return;
+      if(!isResSent){
+        res.json(data.toString());
+        return;
+      }
     })
 }
 

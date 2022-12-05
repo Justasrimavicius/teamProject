@@ -1,5 +1,6 @@
 body{
     margin: 0;
+    background-color: azure;
 }
 .App{
     height: 100vh;
@@ -21,21 +22,28 @@ main{
     align-items: center;
 }
 .main-text-input{
-    background: rgba(229, 228, 228, 0.85);
+    background: rgba(255, 255, 255, 0.85);
     opacity: 0.5;
     border-radius: 50px;
     width: 49%;
     height: 50px;
     font-size: 2rem;
     box-shadow: 0px 6px 20px 0px #8d8d8d;
-
+    border: 0;
+    outline: 2px solid gray;
+}
+.main-text-input:hover{
+    background-color: rgb(232, 232, 232);
+}
+.main-text-input:focus{
+    outline: 2px solid rgb(79, 79, 79);
 }
 .input-results{
     background: linear-gradient(120deg, rgba(8, 227, 255, 0.162) 13.4%, rgba(234, 247, 87, 0.6) 86.6%);
-    border-radius: 60px;
+    border-radius: 50px;
     width: 90%;
     height: 50%;
-    padding: 10px 0 40px 0;
+    padding: 0px 0 30px 0;
     box-shadow: 0px 6px 20px 0px #8d8d8d;
 }
 .input-innerResults{
@@ -52,7 +60,8 @@ main{
 }
 .input-buttons button,
 .goBack-btn{
-    background: linear-gradient(120deg, rgba(245, 237, 71, 0.5) 13.4%, rgba(128, 245, 232, 0.5) 86.6%);
+    /* background: linear-gradient(120deg, rgba(245, 237, 71, 0.5) 13.4%, rgba(128, 245, 232, 0.5) 86.6%); */
+    background-color: rgb(255, 255, 255);
     opacity: 0.5;
     border-radius: 50px;
     min-height: 50px;
@@ -62,6 +71,19 @@ main{
     box-shadow: 0px 6px 20px 0px #8d8d8d;
     font-size: 1.3rem;
     font-weight: bold;
+    border: 2px solid black;
+
+    transition: 0.5s all;
+}
+.goBack-btn{
+    background-color: #b5b5b500;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    height: 20px !important;
+}
+.input-buttons button:hover{
+    box-shadow: 0px 10px 20px 1px #6c6c6c;
 }
 .goBack-btn{
     min-width: 20%;
@@ -92,6 +114,8 @@ main{
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    gap: 5px;
+    
 }
 .errorMsg{
     color: red;
@@ -121,7 +145,9 @@ main{
 
 #burbulas{
     width: 90%;
-    /* height: 50%; */
+}
+#burbulas svg{
+    padding: 15px 0px 15px 0px;
 }
 #burbulas svg{
     width: 100% !important;
@@ -151,7 +177,6 @@ main{
    color: rgb(63, 0, 0);
 }
 @media (max-width: 750px){
-
     main{
         margin: 0;
         width: 100vw;
@@ -160,10 +185,27 @@ main{
         font-size: 3rem;
         grid-column: 2/6 !important;
     }
+    .redditIcon-main,
+    .twitterIcon-main{
+        width: 20vw !important;
+    }
+    .input-buttons button,
+    .goBack-btn{
+        font-size: 1.1rem;
+    }
+    .main-text-input{
+        font-size: 1.4rem;
+        height: 40px;
+        width: 100%;
+    }
+    .inputs{
+        flex-direction: column;
+        gap: 5px;
+    }
 }
 @media (min-width: 1400px){
     .redditIcon-main,
     .twitterIcon-main{
-        width: 10vw !important;
+        width: 12vw !important;
     }
 }

@@ -30,7 +30,7 @@ function Authentication(props) {
                     {
                     authButton=="default" ? 
                     
-                    <> <button onClick={()=>{setAuthButton('login')}}>Sign in to your account</button>
+                    <> <button onClick={()=>{setAuthButton('login')}} className='signin-btn'>Sign in to your account</button>
                     <div className='auth-seperation'>
                         <div className='dash'></div>
                         <p style={{fontSize: '1.5rem'}}>or</p>

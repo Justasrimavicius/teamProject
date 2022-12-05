@@ -9,15 +9,18 @@ function WordCloudSec(props) {
         // Cloudo dimensionai
         const margin = {top: 0, right: 0, bottom: 0, left: 0},
             width = 0.72*window.innerWidth - margin.left - margin.right,
-            height = 0.6*window.innerHeight - margin.top - margin.bottom;
+            height = 0.45*window.innerHeight - margin.top - margin.bottom;
         
         // append the svg object to the body of the page (karoce be sito neveiks XDDD)
         const svg = d3.select("#burbulas").append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
+
         .append("g")
+            .attr("width", width + margin.left + margin.right)
             .attr("transform",
-                "translate(" + margin.left + "," + margin.top + ")");
+                "translate(" + margin.left + "," + margin.top + ")")
+            
         let sizeMultiplier = 1;
         //Pacio layouto kurimas    
         const layout = cloud()

@@ -16,7 +16,7 @@ function Content(props) {
                 <>
                     <img src={require('../../Photos/twitterIcon.png')} alt='user icon' className='twitterIcon-main' onClick={()=>{setWhatToScrape('twitter')}}></img>
                     <img src={require('../../Photos/redditIcon.png')} alt='user icon' className='redditIcon-main' onClick={()=>{setWhatToScrape('reddit')}}></img>
-                    <h1 style={{marginBottom:'300px', textAlign:'center'}}>Choose the platfrom you want to scrape information from</h1>
+                    <h1 style={{margin:'15px 10px 300px 10px', textAlign:'center'}}>Choose the platfrom you want to scrape information from</h1>
                 </>
                 :
                 <>
