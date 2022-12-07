@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 
 import MyContext from '../../context';
-
+import link from '../../link';
 function Signup(props) {
 
     const [authErrorMsg, setAuthErrorMsg] = useState('');
@@ -9,11 +9,10 @@ function Signup(props) {
     const { UID, setUID } = useContext(MyContext);
 
     async function checkSubmit(e){
-        console.log(props)
 
         e.preventDefault();
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", 'http://localhost:8080/signup', true);
+        xhr.open("POST", `${link}/signup`, true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify({
             email: e.currentTarget.email.value,
@@ -24,7 +23,6 @@ function Signup(props) {
 
         xhr.onload = ()=>{
             const parsedResponse = JSON.parse(xhr.responseText);
-            console.log(parsedResponse)
             if(parsedResponse.UID){
                 setUID(parsedResponse.UID);
                 props.setAuthenticated(true);

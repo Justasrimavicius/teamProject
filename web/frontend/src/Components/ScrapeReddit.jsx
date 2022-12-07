@@ -6,6 +6,8 @@ import { useRef } from 'react';
 import MyContext from '../context';
 import WordCloudSec from './MainSections/WordCloudSec';
 
+import link from '../link';
+
 function ScrapeReddit(props) {
     const { UID } = useContext(MyContext);
     const [error, setError] = useState(null);
@@ -34,6 +36,7 @@ function ScrapeReddit(props) {
         }
         if(freq != '' && freq > 1000){
             setError(`Word frequency can't be larger then 1000`)
+            return;
         }
         if(text==previousText.current){
             setError('Type a different word/phrase');
@@ -46,7 +49,7 @@ function ScrapeReddit(props) {
         setLoading(true);
 
         let xhr = new XMLHttpRequest();
-        xhr.open('POST','http://localhost:8080/redditScrapping', true);
+        xhr.open('POST',`${link}/redditScrapping`, true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify({
             text: text,
@@ -104,7 +107,7 @@ function ScrapeReddit(props) {
 
     return (
         <div className='scrapeReddit'>
-            <h4 style={{fontSize:'2rem',margin:'0'}}>Reddit scrapping</h4>
+            <h4 style={{fontSize:'2rem',margin:'0'}}>Reddit scraping</h4>
             <p className='errorMsg'>{error}</p>
             <div className='inputs'>
                 <input className='main-text-input' placeholder='Your word' ref={textInputRef}></input>
@@ -118,7 +121,6 @@ function ScrapeReddit(props) {
                 </ul>
                 <div className='input-innerResults'>
                     {scrapeResults.map((singleField,index)=>{
-                        console.log(singleField)
                         if(scrapeResults.length == 1 && isNaN(singleField[1])){
                             return <div className='no-results' key={index}>No results found</div>
                         }
@@ -139,7 +141,7 @@ function ScrapeReddit(props) {
 
             <div className='input-buttons'>
                 <button onClick={()=>{scrape()}} ref={scrapeBtnRef}>{loading==true ? <div className="lds-dual-ring"></div> : <p style={{margin:'0'}}>Scrape</p>}</button>
-                <button onClick={()=>{if(scrapeResults.length == 0){setError('First, enter a word/phrase to scrape'); return}; if(UID == ''){setError('You need to log in in order to see the detailed view');return;}activateWordCloud(true)}}>Detailed view</button>
+                <button onClick={()=>{if(scrapeResults.length == 0){setError('First, enter a word/phrase to scrape'); return}; if(UID == ''){setError('You need to log in in order to see the word cloud');return;}activateWordCloud(true)}}>View word cloud</button>
             </div>
             <button className='goBack-btn' onClick={()=>{if(wordCloud == true){activateWordCloud(false); return}props.setWhatToScrape('')}}>Go back</button>
         </div>

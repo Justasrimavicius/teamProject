@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.c7f89279.css",
+    "main.js": "/static/js/main.74f3c323.js",
+    "static/media/twitterIcon.png": "/static/media/twitterIcon.9b6c311e687830613213.png",
+    "static/media/redditIcon.png": "/static/media/redditIcon.c7c922f1443bd5de6996.png",
+    "index.html": "/index.html",
+    "main.c7f89279.css.map": "/static/css/main.c7f89279.css.map",
+    "main.74f3c323.js.map": "/static/js/main.74f3c323.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c7f89279.css",
+    "static/js/main.74f3c323.js"
+  ]
+}

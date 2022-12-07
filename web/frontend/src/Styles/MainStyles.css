@@ -183,7 +183,6 @@ main{
     }
     .name{
         font-size: 3rem;
-        grid-column: 2/6 !important;
     }
     .redditIcon-main,
     .twitterIcon-main{

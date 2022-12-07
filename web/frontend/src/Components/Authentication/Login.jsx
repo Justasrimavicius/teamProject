@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useState } from 'react';
 
 import MyContext from '../../context';
-
+import link from '../../link';
 function Login(props){
     
     const [authErrorMsg, setAuthErrorMsg] = useState('');
@@ -12,7 +12,7 @@ function Login(props){
     function submitForm(e){
         e.preventDefault();
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", 'http://localhost:8080/login', true);
+        xhr.open("POST", `${link}/login`, true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify({
             email: e.currentTarget.email.value,

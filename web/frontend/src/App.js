@@ -12,7 +12,6 @@ function App() {
   const [UID, setUID] = useState('');
 
   useEffect(()=>{
-    console.log(UID);
   },[UID])
 
   return (
@@ -22,7 +21,7 @@ function App() {
       !authenticated ? <Authentication props={{setAuthenticated}}/>
       :
       <>
-        {authenticated=='unauthenticated' ? <Header isAuthenticated={false}/> : <Header isAuthenticated={true}/>}
+        {authenticated=='unauthenticated' ? <Header isAuthenticated={false} setAuthenticated={setAuthenticated}/> : <Header isAuthenticated={true} setAuthenticated={setAuthenticated}/>}
 
         {authenticated=='unauthenticated' ? <Content isAuthenticated={false}/> : <Content isAuthenticated={true}/>}
 

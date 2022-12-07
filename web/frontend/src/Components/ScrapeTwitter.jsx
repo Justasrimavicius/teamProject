@@ -6,6 +6,8 @@ import { useRef } from 'react';
 import MyContext from '../context';
 import WordCloudSec from './MainSections/WordCloudSec';
 
+import link from '../link';
+
 function ScrapeTwitter(props) {
     const { UID } = useContext(MyContext);
     const [error, setError] = useState(null);
@@ -44,14 +46,13 @@ function ScrapeTwitter(props) {
         setLoading(true);
 
         let xhr = new XMLHttpRequest();
-        xhr.open('POST','http://localhost:8080/twitterScrapping', true);
+        xhr.open('POST',`${link}/twitterScrapping`, true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify({
             text: text,
             freq: freq
         }));
         xhr.onload = ()=>{
-            console.log(xhr.responseText)
             setLoading(false);
             const response = xhr.responseText.slice(2, xhr.responseText.length - 4);
             const temp_all = response.split('(');
@@ -68,7 +69,6 @@ function ScrapeTwitter(props) {
                     return (innerElem.replaceAll(' ', '')).replaceAll(`'`,'');
                 })
             })
-            console.log(final);
             setScrapeResults(final);
         }
     }
@@ -93,7 +93,7 @@ function ScrapeTwitter(props) {
 
     return (
         <div className='scrapeTwitter'>
-            <h4 style={{fontSize:'2rem',margin:'0'}}>Twitter scrapping</h4>
+            <h4 style={{fontSize:'2rem',margin:'0'}}>Twitter scraping</h4>
             <p className='errorMsg'>{error}</p>
             <div className='inputs'>
                 <input className='main-text-input' placeholder='Your word' ref={textInputRef}></input>
@@ -110,7 +110,7 @@ function ScrapeTwitter(props) {
                         if(isNaN(singleField[1]))return;
                         return(
                             <ul className='reddit-ul' key={index}>
-                                <li>{singleField[0]}</li>
+                                <li>{singleField[0].toUpperCase()}</li>
                                 <li>{singleField[1]}</li>
                             </ul>
                         )
@@ -122,7 +122,7 @@ function ScrapeTwitter(props) {
             }
             <div className='input-buttons'>
                 <button onClick={()=>{scrape()}} ref={scrapeBtnRef}>{loading==true ? <div className="lds-dual-ring"></div> : <p style={{margin:'0'}}>Scrape</p>}</button>
-                <button onClick={()=>{if(scrapeResults.length == 0){setError('First, enter a word/phrase to scrape'); return};if(UID == ''){setError('You need to log in in order to see the detailed view');return;} activateWordCloud(true)}}>Detailed view</button>
+                <button onClick={()=>{if(scrapeResults.length == 0){setError('First, enter a word/phrase to scrape'); return};if(UID == ''){setError('You need to log in in order to see the word cloud');return;} activateWordCloud(true)}}>View word cloud</button>
             </div>
             <button className='goBack-btn' onClick={()=>{if(wordCloud == true){activateWordCloud(false); return}props.setWhatToScrape('')}}>Go back</button>
         </div>
