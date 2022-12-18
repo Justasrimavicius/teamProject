@@ -2,6 +2,7 @@ import React from 'react';
 import * as d3 from "d3";
 import * as cloud from 'd3-cloud';
 import { useEffect } from 'react';
+let sizeMultiplier = 1;
 
 function WordCloudSec(props) {
     useEffect(()=>{
@@ -21,14 +22,13 @@ function WordCloudSec(props) {
             .attr("transform",
                 "translate(" + margin.left + "," + margin.top + ")")
             
-        let sizeMultiplier = 1;
         //Pacio layouto kurimas    
         const layout = cloud()
         .size([width, height])
         .words(props.array.map((d,index)=>{if(index==1){if(parseFloat(d[1]) < 20){sizeMultiplier = 3}else if(parseFloat(d[1]) < 50){sizeMultiplier = 2}else if(parseFloat(d[1]) > 200){sizeMultiplier = 0.7}else{sizeMultiplier = 1}}; return {text: d[0], size: d[1]}}))
         .padding(4)        //Tarpas tarp zodziu
         .rotate(315)       // Zodziu pasisukimas, jis yra random galima padaryt ji vienoda
-        .fontSize(function(d) { return d.size * sizeMultiplier; })      // zodziu dydis pagal turimus skaicius, kadangi fonto dydis atitinka frequency
+        .fontSize(function(d) {return d.size; })      // zodziu dydis pagal turimus skaicius, kadangi fonto dydis atitinka frequency
                                                         //tai galima dalint is skaiciaus arba kazkaip suzaist su skaiciais
         .on("end", draw);
         layout.start();
@@ -41,7 +41,7 @@ function WordCloudSec(props) {
             .selectAll("text")
                 .data(words)
             .enter().append("text")
-                .style("font-size", function(d) { return d.size; }) //atitinkamai reiks ir cia pakeist kadangi sitas dalykas actually piesia 
+                .style("font-size", function(d) { return `${d.size * sizeMultiplier}px`; }) //atitinkamai reiks ir cia pakeist kadangi sitas dalykas actually piesia 
                 .style("fill", spalvos[Math.floor(Math.random() * 10)]) //spalvos 
                 .attr("text-anchor", "middle")
                 .style("font-family", "Impact")

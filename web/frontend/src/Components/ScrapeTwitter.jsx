@@ -107,6 +107,10 @@ function ScrapeTwitter(props) {
                     </ul>
                 <div className='input-innerResults'>
                     {scrapeResults.map((singleField,index)=>{
+                        if(scrapeResults.length == 1 && isNaN(singleField[1])){
+                            return <div className='no-results' key={index}>No results found</div>
+                        }
+                        console.log(scrapeResults)
                         if(isNaN(singleField[1]))return;
                         return(
                             <ul className='reddit-ul' key={index}>

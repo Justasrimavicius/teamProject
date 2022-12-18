@@ -125,6 +125,15 @@ function ScrapeReddit(props) {
                             return <div className='no-results' key={index}>No results found</div>
                         }
                         if(singleField[0] == '&#X200B;' || singleField[0] == '\\u200b')return;
+                        console.log(singleField[0])
+                        singleField[0] = singleField[0].replaceAll('/','')
+                        singleField[0] = singleField[0].replaceAll('"','')
+                        singleField[0] = singleField[0].replaceAll(`\\`,'')
+                        singleField[0] = singleField[0].replaceAll(`,`,'')
+                        singleField[0] = singleField[0].replaceAll(`:`,'')
+                        singleField[0] = singleField[0].replaceAll(`.`,'')
+
+                        console.log(singleField[0])
                         if(isNaN(singleField[1]))return;
                         return(
                             <ul className='reddit-ul' key={index}>
